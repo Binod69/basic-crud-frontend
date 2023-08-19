@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <div className="container  mx-auto p-2 h-full">
-        {/* <CreateBtn /> */}
+        <CreateBtn />
         <HomeScreen />
       </div>
     </>

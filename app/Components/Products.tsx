@@ -7,6 +7,7 @@ import { Button } from '@nextui-org/react';
 import { AiOutlineEdit } from 'react-icons/ai';
 import ProductItems from './ProductItems';
 import Loading from '../loading';
+import CreateBtn from './ui/CreateBtn';
 
 interface DataItems {
   id: string;
@@ -36,11 +37,6 @@ const Products = () => {
     );
   return (
     <>
-      <div>
-        <Link href="/create">
-          <Button startContent={<AiOutlineEdit />}>Create Product</Button>
-        </Link>
-      </div>
       {data.length > 0 ? (
         <>
           <div className=" grid grid-cols-2 lg:grid-cols-4 gap-4 my-10">

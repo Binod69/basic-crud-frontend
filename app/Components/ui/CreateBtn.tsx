@@ -1,13 +1,14 @@
 import Link from 'next/link';
-import { Button } from '@nextui-org/react';
-import { AiOutlineEdit } from 'react-icons/ai';
+import { Button, Spacer } from '@nextui-org/react';
+import { AiOutlineFolderAdd } from 'react-icons/ai';
 
 const CreateBtn = () => {
   return (
     <>
+      <Spacer y={5} />
       <div>
         <Link href="/create">
-          <Button startContent={<AiOutlineEdit />}>Create Product</Button>
+          <Button startContent={<AiOutlineFolderAdd />}>Create Product</Button>
         </Link>
       </div>
     </>
