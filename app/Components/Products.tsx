@@ -1,10 +1,12 @@
 'use client';
-
+import Link from 'next/link';
 import { useQuery } from 'react-query';
 import axiosInstance from '../config/axios.config';
 import apiEndpoints from '../config/apiEndpoints';
-import { Card, CardHeader, CardBody, Image, Button } from '@nextui-org/react';
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import { Button } from '@nextui-org/react';
+import { AiOutlineEdit } from 'react-icons/ai';
+import ProductItems from './ProductItems';
+import Loading from '../loading';
 
 interface DataItems {
   id: string;
@@ -22,7 +24,7 @@ const Products = () => {
   if (isLoading)
     return (
       <>
-        <p>loading...</p>
+        <Loading />
       </>
     );
 
@@ -34,33 +36,41 @@ const Products = () => {
     );
   return (
     <>
+      <div>
+        <Link href="/create">
+          <Button startContent={<AiOutlineEdit />}>Create Product</Button>
+        </Link>
+      </div>
       {data.length > 0 ? (
         <>
-          <div className="flex justify-center flex-wrap items-center gap-10 my-10">
-            {data.map((item: DataItems) => (
-              <Card key={item.id} isBlurred shadow="sm" className="py-4">
-                <CardBody className="overflow-visible py-2">
-                  <Image
-                    alt={item.name}
-                    className="object-cover rounded-xl"
-                    src={item.image}
-                    width={270}
-                  />
-                </CardBody>
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                  <p className="text-tiny uppercase font-bold">{item.name}</p>
-                  <small className="text-default-500">{item.quantity}</small>
-                  <h4 className="font-bold text-large">Price: {item.price}</h4>
-                </CardHeader>
-                <div className=" flex items-center justify-evenly mt-4">
-                  <Button color="success" startContent={<AiOutlineEdit />}>
-                    Edit Product
-                  </Button>
-                  <Button color="danger" startContent={<AiOutlineDelete />}>
-                    Delete Product
-                  </Button>
-                </div>
-              </Card>
+          <div className=" grid grid-cols-2 lg:grid-cols-4 gap-4 my-10">
+            {data.map((items: DataItems) => (
+              //   <Card key={item.id} isBlurred shadow="sm" className="py-4">
+              //     <CardBody className="overflow-visible py-2">
+              //       <Image
+              //         alt={item.name}
+              //         className="object-cover rounded-xl"
+              //         src={item.image}
+              //         width={270}
+              //       />
+              //     </CardBody>
+              //     <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+              //       <p className="text-tiny uppercase font-bold">{item.name}</p>
+              //       <small className="text-default-500">
+              //         Quantity: {item.quantity}
+              //       </small>
+              //       <h4 className="font-bold text-large">Price: {item.price}</h4>
+              //     </CardHeader>
+              //     <div className=" flex items-center justify-evenly mt-4">
+              //       <Button color="success" startContent={<AiOutlineEdit />}>
+              //         Edit Product
+              //       </Button>
+              //       <Button color="danger" startContent={<AiOutlineDelete />}>
+              //         Delete Product
+              //       </Button>
+              //     </div>
+              //   </Card>
+              <ProductItems key={items.id} data={items} />
             ))}
           </div>
         </>

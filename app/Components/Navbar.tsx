@@ -13,7 +13,12 @@ const Navbars = () => {
 
   return (
     <>
-      <Navbar shouldHideOnScroll isBordered onMenuOpenChange={setIsMenuOpen}>
+      <Navbar
+        className="bg-bgColor container"
+        shouldHideOnScroll
+        isBordered
+        onMenuOpenChange={setIsMenuOpen}
+      >
         <NavbarContent>
           <NavbarMenuToggle
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
@@ -21,7 +26,7 @@ const Navbars = () => {
           />
           <NavbarBrand>
             <Link href="/">
-              <p className="font-bold text-inherit text-2xl">Basic Crud</p>
+              <p className="font-bold text-2xl text-textColor">Basic Crud</p>
             </Link>
           </NavbarBrand>
         </NavbarContent>
