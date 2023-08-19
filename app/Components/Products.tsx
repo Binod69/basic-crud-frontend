@@ -1,4 +1,5 @@
 'use client';
+
 import { useQuery } from 'react-query';
 import axiosInstance from '../config/axios.config';
 import apiEndpoints from '../config/apiEndpoints';
@@ -15,7 +16,7 @@ interface DataItems {
 
 const Products = () => {
   const { isLoading, error, data } = useQuery('productsData', () =>
-    fetch('http://localhost:3001/api/v1/products').then((res) => res.json())
+    axiosInstance.get(apiEndpoints.PRODUCTS).then((res) => res.data)
   );
 
   if (isLoading)
@@ -28,38 +29,46 @@ const Products = () => {
   if (error)
     return (
       <>
-        <p className=" bg-red-500">error</p> + error.message
+        <p className=" text-red-500">error</p> + error.message
       </>
     );
   return (
     <>
-      <div className="flex justify-center flex-wrap items-center gap-10 my-10">
-        {data.map((item: DataItems) => (
-          <Card key={item.id} isBlurred shadow="sm" className="py-4">
-            <CardBody className="overflow-visible py-2">
-              <Image
-                alt={item.name}
-                className="object-cover rounded-xl"
-                src={item.image}
-                width={270}
-              />
-            </CardBody>
-            <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-              <p className="text-tiny uppercase font-bold">{item.name}</p>
-              <small className="text-default-500">{item.quantity}</small>
-              <h4 className="font-bold text-large">Price: {item.price}</h4>
-            </CardHeader>
-            <div className=" flex items-center justify-evenly mt-4">
-              <Button color="success" startContent={<AiOutlineEdit />}>
-                Edit Product
-              </Button>
-              <Button color="danger" startContent={<AiOutlineDelete />}>
-                Delete Product
-              </Button>
-            </div>
-          </Card>
-        ))}
-      </div>
+      {data.length > 0 ? (
+        <>
+          <div className="flex justify-center flex-wrap items-center gap-10 my-10">
+            {data.map((item: DataItems) => (
+              <Card key={item.id} isBlurred shadow="sm" className="py-4">
+                <CardBody className="overflow-visible py-2">
+                  <Image
+                    alt={item.name}
+                    className="object-cover rounded-xl"
+                    src={item.image}
+                    width={270}
+                  />
+                </CardBody>
+                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+                  <p className="text-tiny uppercase font-bold">{item.name}</p>
+                  <small className="text-default-500">{item.quantity}</small>
+                  <h4 className="font-bold text-large">Price: {item.price}</h4>
+                </CardHeader>
+                <div className=" flex items-center justify-evenly mt-4">
+                  <Button color="success" startContent={<AiOutlineEdit />}>
+                    Edit Product
+                  </Button>
+                  <Button color="danger" startContent={<AiOutlineDelete />}>
+                    Delete Product
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          <div>Currently these is no products available</div>
+        </>
+      )}
     </>
   );
 };
