@@ -5,7 +5,7 @@ import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import Link from 'next/link';
 
 type DataItems = {
-  id: string;
+  _id: string;
   name: string;
   quantity: number;
   price: number;
@@ -17,7 +17,7 @@ const ProductItems = ({ product }: { product: DataItems }) => {
     <>
       <Card isPressable isBlurred shadow="sm" className="py-4">
         <CardBody className="overflow-visible py-2">
-          <Link href={`/edit/${product.id}`}>
+          <Link href={`/edit/${product._id}`}>
             <Image
               alt={product.name}
               className="object-cover rounded-xl"
@@ -33,7 +33,7 @@ const ProductItems = ({ product }: { product: DataItems }) => {
           <h4 className="font-bold text-large">Price: रु‎ {product.price}</h4>
         </CardHeader>
         <div className=" flex items-center justify-center gap-5 mt-4">
-          <Link href={`/edit/${product.id}`}>
+          <Link href={`/edit/${product._id}`}>
             <Button
               className="ms-3"
               color="success"

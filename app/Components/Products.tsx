@@ -6,7 +6,7 @@ import ProductItems from './ProductItems';
 import Loading from '../loading';
 
 type DataItems = {
-  id: string;
+  _id: string;
   name: string;
   quantity: number;
   price: number;
@@ -28,8 +28,8 @@ const Products = () => {
   if (error)
     return (
       <>
-        <p className=" text-red-500">Something went wrong.Try again later</p> +
-        error.message
+        <p className=" text-red-500">Something went wrong.Try again later</p>
+        {error}
       </>
     );
   return (
@@ -37,8 +37,8 @@ const Products = () => {
       {data.length > 0 ? (
         <>
           <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-10">
-            {data.map((items: DataItems, index: string) => (
-              <ProductItems key={index} product={items} />
+            {data.map((items: DataItems) => (
+              <ProductItems key={items._id} product={items} />
             ))}
           </div>
         </>
