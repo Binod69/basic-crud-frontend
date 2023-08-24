@@ -4,35 +4,41 @@ import { Card, CardHeader, CardBody, Image, Button } from '@nextui-org/react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import Link from 'next/link';
 
-interface DataItems {
+type DataItems = {
+  id: string;
   name: string;
   quantity: number;
   price: number;
   image: string;
-}
+};
 
-const ProductItems = ({ data }: { data: DataItems }) => {
+const ProductItems = ({ product }: { product: DataItems }) => {
   return (
     <>
-      <Card isBlurred shadow="sm" className="py-4">
+      <Card isPressable isBlurred shadow="sm" className="py-4">
         <CardBody className="overflow-visible py-2">
-          <Image
-            alt={data.name}
-            className="object-cover rounded-xl"
-            src={data.image}
-            width={270}
-          />
+          <Link href={`/edit/${product.id}`}>
+            <Image
+              alt={product.name}
+              className="object-cover rounded-xl"
+              src={product.image}
+            />
+          </Link>
         </CardBody>
         <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-          <p className="text-tiny uppercase font-bold">{data.name}</p>
+          <p className="text-tiny uppercase font-bold">{product.name}</p>
           <small className="font-bold text-large">
-            Quantity: {data.quantity}
+            Quantity: {product.quantity}
           </small>
-          <h4 className="font-bold text-large">Price: {data.price}</h4>
+          <h4 className="font-bold text-large">Price: रु‎ {product.price}</h4>
         </CardHeader>
-        <div className=" flex items-center justify-evenly mt-4">
-          <Link href="/edit">
-            <Button color="success" startContent={<AiOutlineEdit />}>
+        <div className=" flex items-center justify-center gap-5 mt-4">
+          <Link href={`/edit/${product.id}`}>
+            <Button
+              className="ms-3"
+              color="success"
+              startContent={<AiOutlineEdit />}
+            >
               Edit Product
             </Button>
           </Link>
