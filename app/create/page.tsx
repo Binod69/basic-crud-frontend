@@ -71,13 +71,7 @@ const CreatePage = () => {
           <Spacer y={4} />
           {loading ? (
             <>
-              <Button
-                isDisabled
-                isLoading
-                type="submit"
-                className="w-full "
-                startContent={<AiOutlineSave />}
-              >
+              <Button isDisabled isLoading type="submit" className="w-full ">
                 Save
               </Button>
             </>

@@ -1,7 +1,23 @@
 'use client';
 import Link from 'next/link';
-import { Card, CardHeader, CardBody, Image, Button } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Image,
+  Button,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from '@nextui-org/react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import { MdOutlineCancel } from 'react-icons/md';
+import axiosInstance from '../config/axios.config';
+import apiEndpoints from '../config/apiEndpoints';
 
 type DataItems = {
   _id: string;
@@ -12,6 +28,19 @@ type DataItems = {
 };
 
 const ProductItems = ({ product }: { product: DataItems }) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const router = useRouter();
+
+  const handleDelete = async (id: string) => {
+    try {
+      await axiosInstance.delete(`${apiEndpoints.PRODUCTS}/${id}`);
+      console.log('product deleted', id);
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Card isPressable isBlurred shadow="sm" className="py-4">
@@ -41,11 +70,51 @@ const ProductItems = ({ product }: { product: DataItems }) => {
               Edit Product
             </Button>
           </Link>
-          <Link href={`/delete/${product._id}`}>
+          {/* <Link href={`/delete/${product._id}`}>
             <Button color="danger" startContent={<AiOutlineDelete />}>
               Delete Product
             </Button>
-          </Link>
+          </Link> */}
+
+          <Button
+            color="danger"
+            startContent={<AiOutlineDelete />}
+            onPress={onOpen}
+          >
+            Delete Product
+          </Button>
+          <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
+            <ModalContent>
+              {(onClose) => (
+                <>
+                  <ModalHeader className="flex flex-col gap-1">
+                    Confirm
+                  </ModalHeader>
+                  <ModalBody>
+                    <p>Are you sure you want to delete the product ?</p>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button
+                      startContent={<MdOutlineCancel />}
+                      color="danger"
+                      variant="light"
+                      onPress={onClose}
+                    >
+                      Close
+                    </Button>
+                    <Button
+                      onClick={() => handleDelete(product._id)}
+                      startContent={<AiOutlineDelete />}
+                      color="danger"
+                      onPress={onClose}
+                    >
+                      Delete
+                    </Button>
+                  </ModalFooter>
+                </>
+              )}
+            </ModalContent>
+          </Modal>
         </div>
       </Card>
     </>
