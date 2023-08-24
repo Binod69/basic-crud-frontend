@@ -1,12 +1,11 @@
 'use client';
-import React from 'react';
+import Link from 'next/link';
 import { Card, CardHeader, CardBody, Image, Button } from '@nextui-org/react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
-import Link from 'next/link';
 
 type DataItems = {
   _id: string;
-  name: string;
+  title: string;
   quantity: number;
   price: number;
   image: string;
@@ -19,14 +18,14 @@ const ProductItems = ({ product }: { product: DataItems }) => {
         <CardBody className="overflow-visible py-2">
           <Link href={`/edit/${product._id}`}>
             <Image
-              alt={product.name}
+              alt={product.title}
               className="object-cover rounded-xl"
               src={product.image}
             />
           </Link>
         </CardBody>
         <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-          <p className="text-tiny uppercase font-bold">{product.name}</p>
+          <p className="text-tiny uppercase font-bold">{product.title}</p>
           <small className="font-bold text-large">
             Quantity: {product.quantity}
           </small>
@@ -42,7 +41,7 @@ const ProductItems = ({ product }: { product: DataItems }) => {
               Edit Product
             </Button>
           </Link>
-          <Link href="/delete">
+          <Link href={`/delete/${product._id}`}>
             <Button color="danger" startContent={<AiOutlineDelete />}>
               Delete Product
             </Button>

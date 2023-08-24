@@ -9,7 +9,7 @@ import apiEndpoints from '../config/apiEndpoints';
 import { useState } from 'react';
 
 type Inputs = {
-  name: string;
+  title: string;
   quantity: number;
   price: number;
   image: string;
@@ -44,7 +44,7 @@ const CreatePage = () => {
           <Input
             isRequired
             type="text"
-            {...register('name')}
+            {...register('title')}
             label="Enter Product Name"
           />
           <Spacer y={4} />

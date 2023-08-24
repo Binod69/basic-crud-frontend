@@ -7,7 +7,7 @@ import Loading from '../loading';
 
 type DataItems = {
   _id: string;
-  name: string;
+  title: string;
   quantity: number;
   price: number;
   image: string;
