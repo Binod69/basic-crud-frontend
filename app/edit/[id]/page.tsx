@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import apiEndpoints from '../../config/apiEndpoints';
 import axiosInstance from '../../config/axios.config';
 import Loading from '../../loading';
@@ -6,6 +7,7 @@ import { useQuery } from 'react-query';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Input, Spacer, Button } from '@nextui-org/react';
 import { MdUpdate } from 'react-icons/md';
+import toast from 'react-hot-toast';
 
 type Params = {
   params: {
@@ -20,6 +22,7 @@ type EditProps = {
   image: string;
 };
 const EditProducts = ({ params: { id } }: Params) => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm<EditProps>();
   const { isLoading, error, data } = useQuery<EditProps>('editProduct', () =>
     axiosInstance.get(`${apiEndpoints.PRODUCTS}/${id}`).then((res) => res.data)
@@ -27,7 +30,13 @@ const EditProducts = ({ params: { id } }: Params) => {
   console.log(data);
 
   const onSubmit: SubmitHandler<EditProps> = async (data) => {
-    console.log(data);
+    try {
+      await axiosInstance.put(`${apiEndpoints.PRODUCTS}/${id}`, data);
+      toast.success('Product updated successfully');
+      router.push('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (isLoading || !data) {
