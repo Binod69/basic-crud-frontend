@@ -35,11 +35,12 @@ const ProductItems = ({ product }: { product: DataItems }) => {
   const handleDelete = async (id: string) => {
     try {
       await axiosInstance.delete(`${apiEndpoints.PRODUCTS}/${id}`);
-      console.log('product deleted', id);
+      // console.log('product deleted', id);
       toast.success('Product Deleted Successfully.');
       router.refresh();
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      toast.error(error.message);
     }
   };
 

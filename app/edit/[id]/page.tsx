@@ -2,7 +2,6 @@
 import { useRouter } from 'next/navigation';
 import apiEndpoints from '../../config/apiEndpoints';
 import axiosInstance from '../../config/axios.config';
-import ProductLoading from '../../ProductLoading';
 import { useQuery } from 'react-query';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Input, Spacer, Button } from '@nextui-org/react';
@@ -57,8 +56,8 @@ const EditProducts = ({ params: { id } }: Params) => {
 
   return (
     <>
-      <section className="max-w-lg shadow-lg mx-auto rounded bg-textColor p-7 mt-6">
-        <h2 className="font-semibold text-white text-center">
+      <section className="max-w-lg shadow-lg mx-auto rounded  p-7 mt-6">
+        <h2 className="font-semibold text-textColor text-center">
           Update a Products - {data.title}
         </h2>
         <Spacer y={4} />
