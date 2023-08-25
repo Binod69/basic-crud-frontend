@@ -56,7 +56,7 @@ const EditProducts = ({ params: { id } }: Params) => {
 
   return (
     <>
-      <section className="max-w-lg shadow-lg mx-auto rounded  p-7 mt-6">
+      <section className="max-w-lg shadow-lg mx-auto rounded  p-7 mt-6 ">
         <h2 className="font-semibold text-textColor text-center">
           Update a Products - {data.title}
         </h2>
