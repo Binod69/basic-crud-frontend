@@ -20,9 +20,9 @@ const Products = () => {
 
   if (isLoading)
     return (
-      <>
-        <Loading />
-      </>
+      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-10">
+        <Loading card={8} />
+      </div>
     );
 
   if (error)

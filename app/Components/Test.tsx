@@ -1,20 +1,8 @@
-'use client';
 import { Card, Skeleton } from '@nextui-org/react';
-import React from 'react';
-
-interface LoadingProps {
-  card: number;
-}
-
-const Loading: React.FC<LoadingProps> = ({ card }) => {
-  return Array(card)
-    .fill(0)
-    .map((item) => (
-      <Card
-        key={item.id}
-        className="w-[300px] h-[300px] space-y-5 p-4 "
-        radius="lg"
-      >
+const Test = () => {
+  return (
+    <>
+      <Card className="w-[300px] h-[300px] space-y-5 p-4" radius="lg">
         <Skeleton className="rounded-lg">
           <div className=" h-40 rounded-lg bg-default-300"></div>
         </Skeleton>
@@ -38,7 +26,8 @@ const Loading: React.FC<LoadingProps> = ({ card }) => {
           </div>
         </div>
       </Card>
-    ));
+    </>
+  );
 };
 
-export default Loading;
+export default Test;
