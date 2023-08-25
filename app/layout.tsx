@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Oswald } from 'next/font/google';
 import Navbars from './Components/Navbar';
 import NextQueryClient from './QueryClient';
+import { Toaster } from 'react-hot-toast';
 
 const oswald = Oswald({ subsets: ['latin'] });
 
@@ -23,7 +24,10 @@ export default function RootLayout({
         <Navbars />
         <NextQueryClient>
           <Providers>
-            <main>{children}</main>
+            <main>
+              {children}
+              <Toaster />
+            </main>
           </Providers>
         </NextQueryClient>
       </body>

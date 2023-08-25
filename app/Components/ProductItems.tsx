@@ -18,6 +18,7 @@ import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { MdOutlineCancel } from 'react-icons/md';
 import axiosInstance from '../config/axios.config';
 import apiEndpoints from '../config/apiEndpoints';
+import toast from 'react-hot-toast';
 
 type DataItems = {
   _id: string;
@@ -35,6 +36,7 @@ const ProductItems = ({ product }: { product: DataItems }) => {
     try {
       await axiosInstance.delete(`${apiEndpoints.PRODUCTS}/${id}`);
       console.log('product deleted', id);
+      toast.success('Product Deleted Successfully.');
       router.refresh();
     } catch (error) {
       console.log(error);
@@ -45,13 +47,11 @@ const ProductItems = ({ product }: { product: DataItems }) => {
     <>
       <Card isPressable isBlurred shadow="sm" className="py-4">
         <CardBody className="overflow-visible py-2">
-          <Link href={`/edit/${product._id}`}>
-            <Image
-              alt={product.title}
-              className="object-cover rounded-xl"
-              src={product.image}
-            />
-          </Link>
+          <Image
+            alt={product.title}
+            className="object-cover rounded-xl"
+            src={product.image}
+          />
         </CardBody>
         <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
           <p className="text-tiny uppercase font-bold">{product.title}</p>
@@ -70,11 +70,6 @@ const ProductItems = ({ product }: { product: DataItems }) => {
               Edit Product
             </Button>
           </Link>
-          {/* <Link href={`/delete/${product._id}`}>
-            <Button color="danger" startContent={<AiOutlineDelete />}>
-              Delete Product
-            </Button>
-          </Link> */}
 
           <Button
             color="danger"

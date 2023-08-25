@@ -6,7 +6,7 @@ interface LoadingProps {
   card: number;
 }
 
-const Loading: React.FC<LoadingProps> = ({ card }) => {
+const ProductLoading: React.FC<LoadingProps> = ({ card }) => {
   return Array(card)
     .fill(0)
     .map((item) => (
@@ -41,4 +41,4 @@ const Loading: React.FC<LoadingProps> = ({ card }) => {
     ));
 };
 
-export default Loading;
+export default ProductLoading;

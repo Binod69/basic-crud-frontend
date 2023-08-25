@@ -2,12 +2,13 @@
 import { useRouter } from 'next/navigation';
 import apiEndpoints from '../../config/apiEndpoints';
 import axiosInstance from '../../config/axios.config';
-import Loading from '../../loading';
+import ProductLoading from '../../ProductLoading';
 import { useQuery } from 'react-query';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Input, Spacer, Button } from '@nextui-org/react';
 import { MdUpdate } from 'react-icons/md';
 import toast from 'react-hot-toast';
+import FormLoading from '@/app/Components/FormLoading';
 
 type Params = {
   params: {
@@ -42,7 +43,7 @@ const EditProducts = ({ params: { id } }: Params) => {
   if (isLoading || !data) {
     return (
       <>
-        <Loading />
+        <FormLoading />
       </>
     );
   }

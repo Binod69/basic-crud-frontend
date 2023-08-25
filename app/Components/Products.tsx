@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import axiosInstance from '../config/axios.config';
 import apiEndpoints from '../config/apiEndpoints';
 import ProductItems from './ProductItems';
-import Loading from '../loading';
+import ProductLoading from '../ProductLoading';
 
 type DataItems = {
   _id: string;
@@ -21,7 +21,7 @@ const Products = () => {
   if (isLoading)
     return (
       <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-10">
-        <Loading card={8} />
+        <ProductLoading card={8} />
       </div>
     );
 
