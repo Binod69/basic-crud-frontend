@@ -36,7 +36,7 @@ const CreatePage = () => {
 
   return (
     <>
-      <section className="max-w-lg shadow-lg mx-auto rounded bg-textColor p-7 mt-6">
+      <section className="max-w-lg shadow-lg mx-auto rounded  p-7 mt-6">
         {loading ? (
           <>
             <FormLoading />

@@ -12,7 +12,7 @@ const ProductLoading: React.FC<LoadingProps> = ({ card }) => {
     .map((item) => (
       <Card
         key={item.id}
-        className="w-[300px] h-[300px] space-y-5 p-4 "
+        className="lg:w-[300px] lg:h-[300px] w-full  space-y-5 p-4 "
         radius="lg"
       >
         <Skeleton className="rounded-lg">

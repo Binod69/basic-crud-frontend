@@ -19,6 +19,7 @@ import { MdOutlineCancel } from 'react-icons/md';
 import axiosInstance from '../config/axios.config';
 import apiEndpoints from '../config/apiEndpoints';
 import toast from 'react-hot-toast';
+import { useMutation, useQueryClient } from 'react-query';
 
 type DataItems = {
   _id: string;
@@ -31,18 +32,33 @@ type DataItems = {
 const ProductItems = ({ product }: { product: DataItems }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const handleDelete = async (id: string) => {
     try {
       await axiosInstance.delete(`${apiEndpoints.PRODUCTS}/${id}`);
       // console.log('product deleted', id);
       toast.success('Product Deleted Successfully.');
-      router.refresh();
     } catch (error: any) {
       console.log(error);
       toast.error(error.message);
     }
   };
+
+  const mutation = useMutation({
+    mutationFn: handleDelete,
+    onMutate: async (deletedData) => {
+      await queryClient.cancelQueries({ queryKey: ['productsData'] });
+      //Just get a snapshot
+      const previousData = queryClient.getQueriesData(['productsData']);
+      //Optimistically update the data
+      queryClient.setQueryData(
+        ['productsData'],
+        previousData.filter((product) => product._id !== deletedData)
+      );
+      return { previousData };
+    },
+  });
 
   return (
     <>
@@ -99,7 +115,8 @@ const ProductItems = ({ product }: { product: DataItems }) => {
                       Close
                     </Button>
                     <Button
-                      onClick={() => handleDelete(product._id)}
+                      // onClick={() => handleDelete(product._id)}
+                      onClick={() => mutation.mutate(product._id)}
                       startContent={<AiOutlineDelete />}
                       color="danger"
                       onPress={onClose}
